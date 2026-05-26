@@ -62,7 +62,7 @@ namespace CSharp.lab5.Objects
             return !region.IsEmpty(g); // если полученная форма не пуста то значит было пересечение
         }
 
-        public virtual void Overlaps(BaseObject obj)
+        public virtual void Overlap(BaseObject obj)
         {
             if (this.OnOverlap != null) // если к полю есть привязанные функции
             {

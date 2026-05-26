@@ -21,6 +21,13 @@ namespace CSharp.lab5
                 txtLog.Text = $"[{DateTime.Now:HH:mm:ss:ff}] Игрок пересекся с {obj}\n" + txtLog.Text;
             };
 
+            // добавил реакцию на пересечение с маркером
+            player.OnMarkerOverlap += (m) =>
+            {
+                objects.Remove(m);
+                marker = null;
+            };
+
             marker = new Marker(pbMain.Width / 2 + 50, pbMain.Height / 2 + 50, 0);
 
             objects.Add(marker);
@@ -38,22 +45,17 @@ namespace CSharp.lab5
                 // проверяю было ли пересечение с игроком
                 if (obj != player && player.Overlaps(obj, g))
                 {
-                    player.Overlaps(obj); // то есть игрок пересекся с объектом
-                    obj.Overlaps(player); // и объект пересекся с игроком
-
-                    // тут проверяю что достиг маркера
-                    if (obj == marker)
-                    {
-                        // если достиг, то удаляю маркер из оригинального objects
-                        objects.Remove(marker);
-                        marker = null; // и обнуляю маркер
-                    }
+                    player.Overlap(obj); // то есть игрок пересекся с объектом
+                    obj.Overlap(player); // и объект пересекся с игроком
                 }
+            }
 
+            // рендерим объекты
+            foreach (var obj in objects)
+            {
                 g.Transform = obj.GetTransform();
                 obj.Render(g);
             }
-
 
         }
 
