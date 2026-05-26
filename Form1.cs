@@ -42,6 +42,19 @@ namespace CSharp.lab5
             // расчитывает вектор между игроком и маркером
             float dx = marker.X - player.X; 
             float dy = marker.Y - player.Y;
+
+            // находим его длину
+            float length = MathF.Sqrt(dx * dx + dy * dy);
+            dx /= length; // нормализуем координаты
+            dy /= length;
+
+            // пересчитываем координаты игрока
+            player.X += dx * 2;
+            player.Y += dy * 2;
+
+            // запрашиваем обновление pbMain
+            // это вызовет метод pbMain_Paint по новой
+            pbMain.Invalidate();
         }
     }
 }
