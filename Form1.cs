@@ -39,14 +39,17 @@ namespace CSharp.lab5
             var g = e.Graphics;
 
             g.Clear(Color.White);
+            
+            // теперь сначала вызываем пересчёт игрока
+            updatePlayer();
 
+            // пересчитываем пересечения
             foreach (var obj in objects.ToList())
             {
                 // проверяю было ли пересечение с игроком
                 if (obj != player && player.Overlaps(obj, g))
                 {
                     player.Overlap(obj); // то есть игрок пересекся с объектом
-                    obj.Overlap(player); // и объект пересекся с игроком
                 }
             }
 
@@ -59,7 +62,7 @@ namespace CSharp.lab5
 
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void updatePlayer()
         {
             if (marker != null)
             {
@@ -73,10 +76,25 @@ namespace CSharp.lab5
                 dy /= length;
 
                 // пересчитываем координаты игрока
-                player.X += dx * 2;
-                player.Y += dy * 2;
+                player.X += dx * 0.5f;
+                player.Y += dy * 0.5f;
+
+                // расчитываем угол поворота игрока 
+                player.Angle = 90 - MathF.Atan2(player.vX, player.vY) * 180 / MathF.PI;
             }
 
+            // тормозящий момент,
+            // нужен чтобы, когда игрок достигнет маркера произошло постепенное замедление
+            player.vX += -player.vX * 0.1f;
+            player.vY += -player.vY * 0.1f;
+
+            // пересчет позиция игрока с помощью вектора скорости
+            player.X += player.vX;
+            player.Y += player.vY;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
             // запрашиваем обновление pbMain
             // это вызовет метод pbMain_Paint по новой
             pbMain.Invalidate();
