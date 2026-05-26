@@ -27,13 +27,21 @@ namespace CSharp.lab5
 
             g.Clear(Color.White);
 
-            foreach (var obj in objects)
+            foreach (var obj in objects.ToList())
             {
                 // проверяю было ли пересечение с игроком
                 if (obj != player && player.Overlaps(obj, g))
                 {
                     // и если было вывожу информацию на форму
                     txtLog.Text = $"[{DateTime.Now:HH:mm:ss:ff}] Игрок пересекся с {obj}\n" + txtLog.Text;
+
+                    // тут проверяю что достиг маркера
+                    if (obj == marker)
+                    {
+                        // если достиг, то удаляю маркер из оригинального objects
+                        objects.Remove(marker);
+                        marker = null; // и обнуляю маркер
+                    }
                 }
 
                 g.Transform = obj.GetTransform();
@@ -45,18 +53,21 @@ namespace CSharp.lab5
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            // расчитывает вектор между игроком и маркером
-            float dx = marker.X - player.X;
-            float dy = marker.Y - player.Y;
+            if (marker != null)
+            {
+                // расчитывает вектор между игроком и маркером
+                float dx = marker.X - player.X;
+                float dy = marker.Y - player.Y;
 
-            // находим его длину
-            float length = MathF.Sqrt(dx * dx + dy * dy);
-            dx /= length; // нормализуем координаты
-            dy /= length;
+                // находим его длину
+                float length = MathF.Sqrt(dx * dx + dy * dy);
+                dx /= length; // нормализуем координаты
+                dy /= length;
 
-            // пересчитываем координаты игрока
-            player.X += dx * 2;
-            player.Y += dy * 2;
+                // пересчитываем координаты игрока
+                player.X += dx * 2;
+                player.Y += dy * 2;
+            }
 
             // запрашиваем обновление pbMain
             // это вызовет метод pbMain_Paint по новой
@@ -65,6 +76,13 @@ namespace CSharp.lab5
 
         private void pbMain_MouseClick(object sender, MouseEventArgs e)
         {
+            // тут добавил создание маркера по клику если он еще не создан
+            if (marker == null)
+            {
+                marker = new Marker(0, 0, 0);
+                objects.Add(marker); // и главное не забыть пололжить в objects
+            }
+
             marker.X = e.X;
             marker.Y = e.Y;
         }
