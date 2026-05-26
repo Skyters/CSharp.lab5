@@ -140,7 +140,8 @@ namespace CSharp.lab5
 
         private void createGreenEnemy()
         {
-            GreenEnemy g = new GreenEnemy((rnd.Next() % (pbMain.Width - 25) + 25), (rnd.Next() % (pbMain.Height - 25)), 0, 1, rnd.Next() % 100 + 70);
+            GreenEnemy g = new GreenEnemy(rnd.Next(15, pbMain.Width - 15), rnd.Next(15, pbMain.Height - 15), 0, 1, rnd.Next() % 100 + 70);
+
 
             g.ToDieOfOld += (green) =>
             {
