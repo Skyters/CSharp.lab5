@@ -29,12 +29,18 @@ namespace CSharp.lab5
 
             foreach (var obj in objects)
             {
+                // проверяю было ли пересечение с игроком
+                if (obj != player && player.Overlaps(obj, g))
+                {
+                    // и если было вывожу информацию на форму
+                    txtLog.Text = $"[{DateTime.Now:HH:mm:ss:ff}] Игрок пересекся с {obj}\n" + txtLog.Text;
+                }
+
                 g.Transform = obj.GetTransform();
                 obj.Render(g);
             }
 
-            //g.Transform = myRect.GetTransform();
-            //myRect.Render(g); // теперь так рисуем
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
