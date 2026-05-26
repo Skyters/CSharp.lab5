@@ -117,6 +117,24 @@ namespace CSharp.lab5
             // пересчет позиция игрока с помощью вектора скорости
             player.X += player.vX;
             player.Y += player.vY;
+
+            const float radius = 15f;
+            if (player.X < radius) 
+            { 
+                player.X = radius; player.vX = 0; 
+            }
+            if (player.X > pbMain.Width - radius) 
+            { 
+                player.X = pbMain.Width - radius; player.vX = 0; 
+            }
+            if (player.Y < radius) 
+            { 
+                player.Y = radius; player.vY = 0; 
+            }
+            if (player.Y > pbMain.Height - radius) 
+            { 
+                player.Y = pbMain.Height - radius; player.vY = 0; 
+            }
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
