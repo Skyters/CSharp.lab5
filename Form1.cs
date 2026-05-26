@@ -62,6 +62,7 @@ namespace CSharp.lab5
 
         }
 
+
         private void updatePlayer()
         {
             if (marker != null)
@@ -72,14 +73,14 @@ namespace CSharp.lab5
 
                 // находим его длину
                 float length = MathF.Sqrt(dx * dx + dy * dy);
-                dx /= length; // нормализуем координаты
+                dx /= length;
                 dy /= length;
 
                 // пересчитываем координаты игрока
-                player.X += dx * 0.5f;
-                player.Y += dy * 0.5f;
+                player.vX += dx * 2.0f;
+                player.vY += dy * 2.0f;
 
-                // расчитываем угол поворота игрока 
+                // расчитываем угол поворота игрока
                 player.Angle = 90 - MathF.Atan2(player.vX, player.vY) * 180 / MathF.PI;
             }
 
@@ -92,7 +93,6 @@ namespace CSharp.lab5
             player.X += player.vX;
             player.Y += player.vY;
         }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             // запрашиваем обновление pbMain
