@@ -146,6 +146,11 @@ namespace CSharp.lab5
             {
                 objects.Remove(green);
                 createGreenEnemy();
+                if (count != 0)
+                {
+                    count-= 1;
+                    lblSpore.Text = $"Очки: {count}";
+                }
                 txtLog.Text = $"[{DateTime.Now:ss:ff}] Зелёный кружок умер, создан новый\n" + txtLog.Text;
             };
             objects.Add(g);

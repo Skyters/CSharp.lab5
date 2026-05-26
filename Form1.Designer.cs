@@ -67,9 +67,9 @@
             lblSpore.AutoSize = true;
             lblSpore.Location = new Point(409, 314);
             lblSpore.Name = "lblSpore";
-            lblSpore.Size = new Size(36, 15);
+            lblSpore.Size = new Size(48, 15);
             lblSpore.TabIndex = 2;
-            lblSpore.Text = "Очки";
+            lblSpore.Text = "Очки: 0";
             // 
             // Form1
             // 
