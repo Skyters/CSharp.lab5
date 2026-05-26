@@ -8,7 +8,7 @@ namespace CSharp.lab5
         public Form1()
         {
             InitializeComponent();
-            myRect = new MyRectangle(0, 0, 0);
+            myRect = new MyRectangle(100, 100, 45);
         }
 
         private void pbMain_Paint(object sender, PaintEventArgs e)
@@ -16,6 +16,8 @@ namespace CSharp.lab5
             var g = e.Graphics;
 
             g.Clear(Color.White);
+
+            g.Transform = myRect.GetTransform();
 
             myRect.Render(g); // теперь так рисуем
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace CSharp.lab5.Objects
 {
@@ -16,6 +17,15 @@ namespace CSharp.lab5.Objects
             X = x;
             Y = y;
             Angle = angle;
+        }
+
+        public Matrix GetTransform()
+        {
+            var matrix = new Matrix();
+            matrix.Translate(X, Y);
+            matrix.Rotate(Angle);
+
+            return matrix;
         }
 
         // добавил виртуальный метод для отрисовки
