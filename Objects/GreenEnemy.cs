@@ -43,7 +43,7 @@ namespace CSharp.lab5.Objects
 
         public override void ToTick()
         {
-            this.timeToLive -= 10.1f;
+            this.timeToLive -= 1f;
             if (this.timeToLive <= 0)
             {
                 ToDieOfOld?.Invoke(this);

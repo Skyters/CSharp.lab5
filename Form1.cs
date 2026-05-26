@@ -142,12 +142,12 @@ namespace CSharp.lab5
 
         private void createGreenEnemy()
         {
-            GreenEnemy g = new GreenEnemy((rnd.Next() % (pbMain.Width - 25) + 25), (rnd.Next() % (pbMain.Height - 25)), 0, rnd.Next() % 13 + 2, rnd.Next() % 3500 + 1000);
+            GreenEnemy g = new GreenEnemy((rnd.Next() % (pbMain.Width - 25) + 25), (rnd.Next() % (pbMain.Height - 25)), 0, 1, rnd.Next() % 70 + 30);
             g.ToDieOfOld += (green) =>
             {
                 objects.Remove(green);
                 createGreenEnemy();
-                txtLog.Text = $"[{DateTime.Now:HH:mm:ss:ff}] Зелёный кружок умер, создан новый\n" + txtLog.Text;
+                txtLog.Text = $"[{DateTime.Now:ss:ff}] Зелёный кружок умер, создан новый\n" + txtLog.Text;
             };
             objects.Add(g);
         }
