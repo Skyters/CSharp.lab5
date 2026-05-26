@@ -5,10 +5,15 @@ namespace CSharp.lab5
     public partial class Form1 : Form
     {
         MyRectangle myRect; // Прямоугольник
+        List<BaseObject> objects = new(); 
+
         public Form1()
         {
             InitializeComponent();
-            myRect = new MyRectangle(100, 100, 45);
+
+            objects.Add(new MyRectangle(50, 50, 0));
+            objects.Add(new MyRectangle(100, 100, 45));
+            //myRect = new MyRectangle(100, 100, 45);
         }
 
         private void pbMain_Paint(object sender, PaintEventArgs e)
@@ -17,9 +22,14 @@ namespace CSharp.lab5
 
             g.Clear(Color.White);
 
-            g.Transform = myRect.GetTransform();
-
-            myRect.Render(g); // теперь так рисуем
+            foreach (var obj in objects)
+            {
+                g.Transform = obj.GetTransform();
+                obj.Render(g);
+            }
+            
+            //g.Transform = myRect.GetTransform();
+            //myRect.Render(g); // теперь так рисуем
         }
     }
 }
