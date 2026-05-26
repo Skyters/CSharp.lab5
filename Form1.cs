@@ -40,7 +40,7 @@ namespace CSharp.lab5
         private void timer1_Tick(object sender, EventArgs e)
         {
             // расчитывает вектор между игроком и маркером
-            float dx = marker.X - player.X; 
+            float dx = marker.X - player.X;
             float dy = marker.Y - player.Y;
 
             // находим его длину
@@ -55,6 +55,12 @@ namespace CSharp.lab5
             // запрашиваем обновление pbMain
             // это вызовет метод pbMain_Paint по новой
             pbMain.Invalidate();
+        }
+
+        private void pbMain_MouseClick(object sender, MouseEventArgs e)
+        {
+            marker.X = e.X;
+            marker.Y = e.Y;
         }
     }
 }

@@ -42,6 +42,7 @@
             pbMain.TabIndex = 0;
             pbMain.TabStop = false;
             pbMain.Paint += pbMain_Paint;
+            pbMain.MouseClick += pbMain_MouseClick;
             // 
             // timer1
             // 
