@@ -4,7 +4,7 @@ namespace CSharp.lab5
 {
     public partial class Form1 : Form
     {
-        public float spore = 0;
+        public float count = 0;
 
         public static Random rnd = new Random();
 
@@ -34,12 +34,12 @@ namespace CSharp.lab5
 
             player.OnGreenMarkerOverlap += (m) =>
             {
-                spore = m.cost + spore;
+                count = m.cost + count;
                 txtLog.Text = $"{DateTime.Now:HH:mm:ss:ff}] Объект: {m} , был пренесен на координаты: {m.X} , {m.Y}.\n" + txtLog.Text;
                 txtLog.Text = $"{DateTime.Now:HH:mm:ss:ff}] Добавлено: {m.cost} очков!\n" + txtLog.Text;
                 objects.Remove(m);
                 createGreenEnemy();
-                lblSpore.Text = $"Очки: {spore}";
+                lblSpore.Text = $"Очки: {count}";
             };
 
 
@@ -54,8 +54,6 @@ namespace CSharp.lab5
             objects.Add(marker);
             objects.Add(player);
             createGreenEnemy();
-            objects.Add(new MyRectangle(50, 50, 0));
-            objects.Add(new MyRectangle(100, 100, 45));
         }
 
         private void pbMain_Paint(object sender, PaintEventArgs e)
@@ -142,7 +140,8 @@ namespace CSharp.lab5
 
         private void createGreenEnemy()
         {
-            GreenEnemy g = new GreenEnemy((rnd.Next() % (pbMain.Width - 25) + 25), (rnd.Next() % (pbMain.Height - 25)), 0, 1, rnd.Next() % 70 + 30);
+            GreenEnemy g = new GreenEnemy((rnd.Next() % (pbMain.Width - 25) + 25), (rnd.Next() % (pbMain.Height - 25)), 0, 1, rnd.Next() % 100 + 70);
+
             g.ToDieOfOld += (green) =>
             {
                 objects.Remove(green);
