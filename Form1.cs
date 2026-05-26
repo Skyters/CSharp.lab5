@@ -15,6 +15,12 @@ namespace CSharp.lab5
             //objects.Add(new MyRectangle(50, 50, 0));
 
             player = new Player(pbMain.Width / 2, pbMain.Height / 2, 0);
+            // добавляю реакцию на пересечение
+            player.OnOverlap += (p, obj) =>
+            {
+                txtLog.Text = $"[{DateTime.Now:HH:mm:ss:ff}] Игрок пересекся с {obj}\n" + txtLog.Text;
+            };
+
             marker = new Marker(pbMain.Width / 2 + 50, pbMain.Height / 2 + 50, 0);
 
             objects.Add(marker);
@@ -32,8 +38,8 @@ namespace CSharp.lab5
                 // проверяю было ли пересечение с игроком
                 if (obj != player && player.Overlaps(obj, g))
                 {
-                    // и если было вывожу информацию на форму
-                    txtLog.Text = $"[{DateTime.Now:HH:mm:ss:ff}] Игрок пересекся с {obj}\n" + txtLog.Text;
+                    player.Overlaps(obj); // то есть игрок пересекся с объектом
+                    obj.Overlaps(player); // и объект пересекся с игроком
 
                     // тут проверяю что достиг маркера
                     if (obj == marker)
