@@ -38,22 +38,22 @@ namespace CSharp.lab5
                 txtLog.Text = $"{DateTime.Now:HH:mm:ss:ff}] Объект: {m} , был пренесен на координаты: {m.X} , {m.Y}.\n" + txtLog.Text;
                 txtLog.Text = $"{DateTime.Now:HH:mm:ss:ff}] Добавлено: {m.cost} очков!\n" + txtLog.Text;
                 objects.Remove(m);
-                createGreen();
-                labelSpore.Text = $"Очки: {spore}";
+                createGreenEnemy();
+                lblSpore.Text = $"Очки: {spore}";
             };
 
 
 
             for (int i = 0; i < 2; i++)
             {
-                createGreen();
+                createGreenEnemy();
             }
 
             marker = new Marker(pbMain.Width / 2 + 50, pbMain.Height / 2 + 50, 0);
 
             objects.Add(marker);
             objects.Add(player);
-            createGreen();
+            createGreenEnemy();
             objects.Add(new MyRectangle(50, 50, 0));
             objects.Add(new MyRectangle(100, 100, 45));
         }
@@ -74,7 +74,10 @@ namespace CSharp.lab5
                 if (obj != player && player.Overlaps(obj, g))
                 {
                     player.Overlap(obj); // то есть игрок пересекся с объектом
+                    obj.Overlap(player);
                 }
+
+                obj.ToTick();
             }
 
             // рендерим объекты

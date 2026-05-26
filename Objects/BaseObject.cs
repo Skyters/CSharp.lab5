@@ -69,5 +69,10 @@ namespace CSharp.lab5.Objects
                 this.OnOverlap(this, obj); // то вызываем их
             }
         }
+
+        public virtual void ToTick()
+        {
+
+        }
     }
 }

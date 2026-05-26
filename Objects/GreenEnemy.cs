@@ -19,11 +19,15 @@ namespace CSharp.lab5.Objects
 
         public override void Render(Graphics g)
         {
-            g.FillEllipse(new SolidBrush(Color.Green), -3, -3, 6, 6);
+            g.FillEllipse( // рис. кружочек
+                new SolidBrush(Color.Green),
+                -15, -15,
+                30, 30
+            );
             g.DrawEllipse(new Pen(Color.Green, 2), -6, -6, 12, 12);
-            g.DrawEllipse(new Pen(Color.Red, 2), -10, -10, 20, 20);
+     
             g.DrawString(
-                        $"Живет ещё {this.timeToLive}",
+                        $"{this.timeToLive}",
                         new Font("Verdana", 8),
                         new SolidBrush(Color.Green),
                         10, 10
