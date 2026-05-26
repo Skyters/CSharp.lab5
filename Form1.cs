@@ -4,7 +4,10 @@ namespace CSharp.lab5
 {
     public partial class Form1 : Form
     {
-        //MyRectangle myRect; // Прямоугольник
+        public float spore = 0;
+
+        public static Random rnd = new Random();
+
         List<BaseObject> objects = new();
         Player player;
         Marker marker;
@@ -12,9 +15,10 @@ namespace CSharp.lab5
         public Form1()
         {
             InitializeComponent();
-            //objects.Add(new MyRectangle(50, 50, 0));
+            
 
             player = new Player(pbMain.Width / 2, pbMain.Height / 2, 0);
+
             // добавляю реакцию на пересечение
             player.OnOverlap += (p, obj) =>
             {
@@ -28,10 +32,30 @@ namespace CSharp.lab5
                 marker = null;
             };
 
+            player.OnGreenMarkerOverlap += (m) =>
+            {
+                spore = m.cost + spore;
+                txtLog.Text = $"{DateTime.Now:HH:mm:ss:ff}] Объект: {m} , был пренесен на координаты: {m.X} , {m.Y}.\n" + txtLog.Text;
+                txtLog.Text = $"{DateTime.Now:HH:mm:ss:ff}] Добавлено: {m.cost} очков!\n" + txtLog.Text;
+                objects.Remove(m);
+                createGreen();
+                labelSpore.Text = $"Очки: {spore}";
+            };
+
+
+
+            for (int i = 0; i < 2; i++)
+            {
+                createGreen();
+            }
+
             marker = new Marker(pbMain.Width / 2 + 50, pbMain.Height / 2 + 50, 0);
 
             objects.Add(marker);
             objects.Add(player);
+            createGreen();
+            objects.Add(new MyRectangle(50, 50, 0));
+            objects.Add(new MyRectangle(100, 100, 45));
         }
 
         private void pbMain_Paint(object sender, PaintEventArgs e)
@@ -86,8 +110,8 @@ namespace CSharp.lab5
 
             // тормозящий момент,
             // нужен чтобы, когда игрок достигнет маркера произошло постепенное замедление
-            player.vX += -player.vX * 0.1f;
-            player.vY += -player.vY * 0.1f;
+            player.vX += -player.vX * 0.2f;
+            player.vY += -player.vY * 0.2f;
 
             // пересчет позиция игрока с помощью вектора скорости
             player.X += player.vX;
@@ -106,11 +130,23 @@ namespace CSharp.lab5
             if (marker == null)
             {
                 marker = new Marker(0, 0, 0);
-                objects.Add(marker); // и главное не забыть пололжить в objects
+                objects.Add(marker);
             }
 
             marker.X = e.X;
             marker.Y = e.Y;
+        }
+
+        private void createGreenEnemy()
+        {
+            GreenEnemy g = new GreenEnemy((rnd.Next() % (pbMain.Width - 25) + 25), (rnd.Next() % (pbMain.Height - 25)), 0, rnd.Next() % 13 + 2, rnd.Next() % 3500 + 1000);
+            g.ToDieOfOld += (green) =>
+            {
+                objects.Remove(green);
+                createGreenEnemy();
+                txtLog.Text = $"[{DateTime.Now:HH:mm:ss:ff}] Зелёный кружок умер, создан новый\n" + txtLog.Text;
+            };
+            objects.Add(g);
         }
     }
 }
