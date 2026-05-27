@@ -37,7 +37,7 @@ namespace CSharp.lab5.Objects
         public override GraphicsPath GetGraphicsPath()
         {
             var path = base.GetGraphicsPath();
-            path.AddEllipse(-3, -3, 6, 6);
+            path.AddEllipse(-15, -15, 30, 30);
             return path;
         }
 

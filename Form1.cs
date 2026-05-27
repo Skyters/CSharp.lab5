@@ -145,7 +145,7 @@ namespace CSharp.lab5
 
         private void pbMain_MouseClick(object sender, MouseEventArgs e)
         {
-            // тут добавил создание маркера по клику если он еще не создан
+            
             if (marker == null)
             {
                 marker = new Marker(0, 0, 0);
